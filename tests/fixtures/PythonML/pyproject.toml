@@ -1,0 +1,4 @@
+﻿[project]
+name = "synthetic-learning"
+dependencies = ["numpy", "torch"]
+

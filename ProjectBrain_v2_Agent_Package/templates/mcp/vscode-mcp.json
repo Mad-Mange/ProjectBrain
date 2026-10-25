@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "projectbrain": {
+      "type": "http",
+      "url": "http://127.0.0.1:4317/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:PROJECTBRAIN_AUTH_TOKEN}"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+CREATE TABLE scan_roots(id TEXT PRIMARY KEY, alias TEXT NOT NULL, path TEXT NOT NULL UNIQUE, enabled INTEGER NOT NULL DEFAULT 0, availability TEXT NOT NULL DEFAULT 'unknown', content_version INTEGER NOT NULL DEFAULT 1, last_success_utc TEXT, last_audit_utc TEXT, next_scan_utc TEXT);
+CREATE TABLE projects(id TEXT PRIMARY KEY, root_id TEXT NOT NULL REFERENCES scan_roots(id), relative_path TEXT NOT NULL, name TEXT NOT NULL, kind TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'available', signature TEXT, revision INTEGER NOT NULL DEFAULT 0, profile_json TEXT NOT NULL DEFAULT '{}', analysis_due INTEGER NOT NULL DEFAULT 1, created_utc TEXT NOT NULL, updated_utc TEXT NOT NULL, UNIQUE(root_id,relative_path));
+CREATE TABLE file_index(id INTEGER PRIMARY KEY, project_id TEXT NOT NULL REFERENCES projects(id), rel_path TEXT NOT NULL, bytes INTEGER NOT NULL, mtime INTEGER NOT NULL, sha256 TEXT, extract TEXT NOT NULL DEFAULT '', parser_version INTEGER NOT NULL DEFAULT 1, removed INTEGER NOT NULL DEFAULT 0, UNIQUE(project_id,rel_path));
+CREATE TABLE scan_jobs(id TEXT PRIMARY KEY, root_id TEXT NOT NULL REFERENCES scan_roots(id), mode TEXT NOT NULL, status TEXT NOT NULL, cancel_requested INTEGER NOT NULL DEFAULT 0, created_utc TEXT NOT NULL, started_utc TEXT, ended_utc TEXT, counts_json TEXT NOT NULL DEFAULT '{}', error_summary TEXT);
+CREATE UNIQUE INDEX one_active_scan ON scan_jobs(root_id) WHERE status IN ('queued','running');
+CREATE INDEX scan_history ON scan_jobs(root_id,created_utc);
+CREATE TABLE change_events(id INTEGER PRIMARY KEY, scan_job_id TEXT NOT NULL REFERENCES scan_jobs(id), project_id TEXT NOT NULL REFERENCES projects(id), event_type TEXT NOT NULL, old_path TEXT, new_path TEXT, old_hash TEXT, new_hash TEXT, created_utc TEXT NOT NULL);
+CREATE TABLE project_revisions(id INTEGER PRIMARY KEY, project_id TEXT NOT NULL REFERENCES projects(id), scan_job_id TEXT NOT NULL REFERENCES scan_jobs(id), revision INTEGER NOT NULL, classification TEXT NOT NULL, profile_json TEXT NOT NULL, created_utc TEXT NOT NULL, UNIQUE(project_id,revision));
+CREATE TABLE project_link_reviews(id INTEGER PRIMARY KEY, candidate_project_ids_json TEXT NOT NULL, reason TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending');
+CREATE TABLE knowledge_items(id INTEGER PRIMARY KEY, kind TEXT NOT NULL CHECK(kind IN ('idea','best_practice','lesson_learned','reusable_solution','project_profile')), title TEXT NOT NULL, summary TEXT NOT NULL, body_md TEXT NOT NULL, state TEXT NOT NULL DEFAULT 'draft', confidence TEXT NOT NULL DEFAULT 'low', needs_review INTEGER NOT NULL DEFAULT 0, proposed_by TEXT NOT NULL, content_version INTEGER NOT NULL DEFAULT 1, project_id TEXT REFERENCES projects(id), created_utc TEXT NOT NULL, updated_utc TEXT NOT NULL);
+CREATE TABLE knowledge_projects(knowledge_id INTEGER NOT NULL REFERENCES knowledge_items(id),project_id TEXT NOT NULL REFERENCES projects(id),PRIMARY KEY(knowledge_id,project_id));
+CREATE TABLE knowledge_tags(knowledge_id INTEGER NOT NULL REFERENCES knowledge_items(id), tag TEXT NOT NULL, PRIMARY KEY(knowledge_id,tag));
+CREATE TABLE knowledge_evidence(id INTEGER PRIMARY KEY, knowledge_id INTEGER NOT NULL REFERENCES knowledge_items(id), project_id TEXT NOT NULL REFERENCES projects(id), rel_path TEXT NOT NULL, file_sha256 TEXT, evidence_note TEXT NOT NULL DEFAULT '', stale_flag INTEGER NOT NULL DEFAULT 0);
+CREATE INDEX evidence_source ON knowledge_evidence(project_id,rel_path);
+CREATE INDEX evidence_knowledge ON knowledge_evidence(knowledge_id,project_id);
+CREATE TABLE knowledge_relations(from_id INTEGER REFERENCES knowledge_items(id), to_id INTEGER REFERENCES knowledge_items(id), relation_type TEXT NOT NULL CHECK(relation_type IN ('related_to','duplicate_of','supersedes','contradicts')), PRIMARY KEY(from_id,to_id,relation_type));
+CREATE TABLE knowledge_reviews(id INTEGER PRIMARY KEY, knowledge_id INTEGER REFERENCES knowledge_items(id), from_state TEXT, to_state TEXT, actor TEXT, reason TEXT, timestamp_utc TEXT);
+CREATE TABLE settings(key TEXT PRIMARY KEY,value_json TEXT NOT NULL);
+CREATE TABLE audit(id INTEGER PRIMARY KEY, entity_id TEXT NOT NULL, actor TEXT NOT NULL, action TEXT NOT NULL, previous_json TEXT, new_json TEXT NOT NULL, reason TEXT, created_utc TEXT NOT NULL);
+CREATE TABLE mutations(key TEXT PRIMARY KEY, scope TEXT NOT NULL, request_hash TEXT NOT NULL, response_json TEXT NOT NULL);
+CREATE VIRTUAL TABLE knowledge_fts USING fts5(title,summary,body,tags,tokenize='unicode61');
+

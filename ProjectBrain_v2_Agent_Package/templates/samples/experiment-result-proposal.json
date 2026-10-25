@@ -1,0 +1,10 @@
+{
+  "knowledgeId": 42,
+  "experimentId": "<uuid-from-an-accepted-experiment-plan>",
+  "proposedOutcome": "passed",
+  "observations": "The deterministic simulation ran correctly and passed tests. Throughput was measured only on the fixture environment.",
+  "evidence": [
+    {"projectId": "<uuid>", "relativePath": "tests/RuleCoreTests.cpp", "commitSha": "<actual-git-sha-or-null>"}
+  ],
+  "clientProposalId": "<stable-uuid-for-idempotent-retries>"
+}

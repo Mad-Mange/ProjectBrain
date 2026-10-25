@@ -1,0 +1,9 @@
+{
+  "kind": "idea",
+  "text": "Test a pure C++ deterministic rules core to accelerate Unreal reinforcement-learning training without rendering.",
+  "intentFlag": "try_next",
+  "title": null,
+  "sourceUrl": null,
+  "projectId": null,
+  "tags": ["cpp", "unreal", "ai", "reinforcement-learning"]
+}

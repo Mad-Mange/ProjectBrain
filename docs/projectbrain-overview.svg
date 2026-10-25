@@ -1,0 +1,34 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+<title id="title">ProjectBrain keeps local project knowledge connected to your AI tools</title>
+<desc id="desc">A read-only project library feeds a private scanner and SQLite knowledge store. People and AI agents search knowledge, while experiments are reviewed by a person.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102a24"/><stop offset="1" stop-color="#173d31"/></linearGradient>
+  <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d7e7a3"/><stop offset="1" stop-color="#8eb98c"/></linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#071711" flood-opacity=".28"/></filter>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#a8c68e"/></marker>
+  <style>
+    .ui{font-family:Inter,"Segoe UI",Arial,sans-serif}.kicker{font-size:12px;font-weight:700;letter-spacing:2.3px;fill:#c1d4a2}.head{font-size:34px;font-weight:650;letter-spacing:-.8px;fill:#f2f4e8}.sub{font-size:15px;fill:#bccbb9}.box{fill:#f8f9f2;stroke:#e2e9d8;stroke-width:1.4}.title{font-size:18px;font-weight:700;fill:#204534}.copy{font-size:13px;fill:#637566}.mini{font-size:11px;fill:#829182}.pill{fill:#e9f0de}.pilltxt{font-size:10px;font-weight:700;letter-spacing:.3px;fill:#456a48}.line{fill:none;stroke:#a8c68e;stroke-width:2.3;stroke-dasharray:6 7;marker-end:url(#arrow)}
+  </style>
+</defs>
+<rect width="1280" height="560" rx="28" fill="url(#bg)"/>
+<circle cx="1110" cy="92" r="176" fill="#8eaa6840"/><circle cx="1110" cy="92" r="125" fill="none" stroke="#d6e5b12a"/><circle cx="1110" cy="92" r="83" fill="none" stroke="#d6e5b12a"/>
+<g class="ui"><text x="74" y="79" class="kicker">A PRIVATE KNOWLEDGE WORKSPACE</text><text x="74" y="127" class="head">Keep what you learn.</text><text x="74" y="168" class="head">Carry it into what’s next.</text><text x="76" y="205" class="sub">Your projects, ideas and tested solutions — connected locally.</text></g>
+<g class="ui" filter="url(#shadow)">
+  <rect x="74" y="274" width="224" height="178" rx="16" class="box"/>
+  <rect x="336" y="274" width="262" height="178" rx="16" class="box"/>
+  <rect x="638" y="274" width="292" height="178" rx="16" class="box"/>
+  <rect x="970" y="274" width="236" height="178" rx="16" class="box"/>
+</g>
+<path class="line" d="M298 362H326"/><path class="line" d="M598 362H628"/><path class="line" d="M930 362H960"/>
+<g class="ui">
+  <rect x="99" y="301" width="37" height="37" rx="10" fill="#e9f0de"/><path d="M109 312h18v16h-18zM113 307h10" fill="none" stroke="#4e7959" stroke-width="2" stroke-linecap="round"/>
+  <text x="151" y="316" class="title">Your library</text><text x="99" y="362" class="copy">.NET · Python · JS/TS</text><text x="99" y="383" class="copy">Unity · Unreal · Blender</text><text x="99" y="404" class="copy">Docker · and more</text><rect x="99" y="421" width="99" height="20" rx="10" class="pill"/><text x="111" y="435" class="pilltxt">READ ONLY</text>
+  <rect x="361" y="301" width="37" height="37" rx="10" fill="#e9f0de"/><path d="M369 319a11 11 0 0 1 18-8m1 0v7h-7M389 320a11 11 0 0 1-18 8m-1 0v-7h7" fill="none" stroke="#4e7959" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="413" y="316" class="title">Private scanner</text><text x="361" y="362" class="copy">Incremental inventory</text><text x="361" y="383" class="copy">Six-hour scans · weekly audit</text><text x="361" y="404" class="copy">No project code execution</text><rect x="361" y="421" width="115" height="20" rx="10" class="pill"/><text x="374" y="435" class="pilltxt">HASH + EVIDENCE</text>
+  <rect x="663" y="301" width="37" height="37" rx="10" fill="#e9f0de"/><ellipse cx="681.5" cy="311.5" rx="10" ry="4.5" fill="none" stroke="#4e7959" stroke-width="2"/><path d="M672 312v14c0 5 19 5 19 0v-14M672 319c0 5 19 5 19 0" fill="none" stroke="#4e7959" stroke-width="2"/>
+  <text x="715" y="316" class="title">Knowledge library</text><text x="663" y="362" class="copy">Quick Capture · FTS5 search</text><text x="663" y="383" class="copy">Ideas stay distinct from proof</text><text x="663" y="404" class="copy">Experiments keep their history</text><rect x="663" y="421" width="128" height="20" rx="10" class="pill"/><text x="676" y="435" class="pilltxt">SQLITE · LOCAL</text>
+  <rect x="995" y="301" width="37" height="37" rx="10" fill="#e9f0de"/><circle cx="1013.5" cy="312" r="5" fill="none" stroke="#4e7959" stroke-width="2"/><path d="M1004 329c1-7 18-7 19 0M1030 310h2m-2 7h2m-2 7h2" fill="none" stroke="#4e7959" stroke-width="2" stroke-linecap="round"/>
+  <text x="1047" y="316" class="title">Useful anywhere</text><text x="995" y="362" class="copy">People review and verify</text><text x="995" y="383" class="copy">Agents search and propose</text><text x="995" y="404" class="copy">Codex · Copilot · Claude</text><rect x="995" y="421" width="117" height="20" rx="10" class="pill"/><text x="1008" y="435" class="pilltxt">MCP · LOOPBACK</text>
+  <text x="74" y="510" class="kicker">CAPTURE</text><path d="M165 506h44" stroke="url(#glow)" stroke-width="2"/><text x="225" y="510" class="kicker">EXPLORE</text><path d="M330 506h44" stroke="url(#glow)" stroke-width="2"/><text x="390" y="510" class="kicker">TEST</text><path d="M453 506h44" stroke="url(#glow)" stroke-width="2"/><text x="513" y="510" class="kicker">REUSE</text>
+  <text x="1206" y="510" text-anchor="end" class="mini">LOCAL FIRST · HUMAN REVIEW · CLEAR PROVENANCE</text>
+</g></svg>

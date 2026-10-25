@@ -1,0 +1,4 @@
+# Merge into ~/.codex/config.toml. Set PROJECTBRAIN_AUTH_TOKEN securely in Codex process environment.
+[mcp_servers.projectbrain]
+url = "http://127.0.0.1:4317/mcp"
+bearer_token_env_var = "PROJECTBRAIN_AUTH_TOKEN"

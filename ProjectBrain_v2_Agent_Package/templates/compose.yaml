@@ -1,0 +1,73 @@
+# Starter template: copy to the root of the implemented repository.
+# Source projects are mounted read-only. Bind only to loopback on the Windows host.
+name: projectbrain
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4317:8080"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      ASPNETCORE_ENVIRONMENT: Production
+      ProjectBrain__Storage__DbPath: /app/data/projectbrain.db
+      ProjectBrain__Scan__SourcesMount: /sources/projects
+      ProjectBrain__Scan__IntervalHours: ${SCAN_INTERVAL_HOURS:-6}
+      ProjectBrain__Scan__FullHashAuditDays: ${FULL_HASH_AUDIT_DAYS:-7}
+      ProjectBrain__Scan__AiEnrichmentEnabled: "false"
+      ProjectBrain__Security__LocalOnly: "true"
+      ProjectBrain__Security__RequireBearerToken: "true"
+      ProjectBrain__Auth__Token: ${PROJECTBRAIN_AUTH_TOKEN:?Set a random secret in .env}
+      ProjectBrain__Knowledge__ExternalAiEnrichmentEnabled: "false"
+      ProjectBrain__Capture__MaxRawTextKiB: "64"
+    volumes:
+      - type: bind
+        source: ${PROJECTS_ROOT:?Set PROJECTS_ROOT in .env}
+        target: /sources/projects
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: volume
+        source: projectbrain_data
+        target: /app/data
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=64m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 256
+    networks:
+      - internal
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4318:8080"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=16m
+      - /var/cache/nginx:rw,nosuid,nodev,size=16m
+      - /var/run:rw,nosuid,nodev,size=16m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      - api
+    networks:
+      - internal
+
+volumes:
+  projectbrain_data:
+
+networks:
+  internal:
+    driver: bridge

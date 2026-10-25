@@ -1,0 +1,41 @@
+{
+  "projectBrain": {
+    "locale": "sv-SE",
+    "displayTimeZone": "Europe/Stockholm",
+    "scan": {
+      "enabled": true,
+      "intervalHours": 6,
+      "fullHashAuditDays": 7,
+      "scanOnStartupIfOverdue": true,
+      "maxTextFileMiB": 1,
+      "maxTreeDepth": 20,
+      "maxFilesPerRoot": 300000,
+      "maxBytesReadPerScanGiB": 2,
+      "maxScanDurationMinutes": 120,
+      "parallelHashWorkers": 2,
+      "followSymlinks": false
+    },
+    "knowledge": {
+      "requireHumanReviewForAgentProposals": true,
+      "requireHumanConfirmationOfExperiments": true,
+      "maxSearchResults": 10,
+      "maxMcpResponseCharacters": 16000,
+      "externalAiEnrichmentEnabled": false,
+      "autoMergeDuplicates": false
+    },
+    "capture": {
+      "maxRawTextKiB": 64,
+      "defaultKind": "idea",
+      "defaultReviewStatus": "draft",
+      "defaultValidationStatus": "untested",
+      "urlFetchEnabled": false
+    },
+    "security": {
+      "localhostOnly": true,
+      "readOnlySourceMounts": true,
+      "executeScannedCode": false,
+      "requireBearerToken": true,
+      "requireOriginValidation": true
+    }
+  }
+}

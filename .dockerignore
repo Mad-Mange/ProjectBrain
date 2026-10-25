@@ -1,0 +1,15 @@
+﻿.git
+.local
+.env
+.env.*
+!.env.example
+data
+**/node_modules
+**/dist
+**/bin
+**/obj
+**/TestResults
+**/test-results
+**/playwright-report
+ProjectBrain_v2_Agent_Package
+

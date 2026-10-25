@@ -1,0 +1,14 @@
+﻿{
+  "mcpServers": {
+    "projectbrain": {
+      "type": "http",
+      "url": "http://127.0.0.1:4317/mcp",
+      "headers": {
+        "Authorization": "Bearer REPLACE_IN_PRIVATE_USER_CONFIG"
+      },
+      "tools": [
+        "*"
+      ]
+    }
+  }
+}

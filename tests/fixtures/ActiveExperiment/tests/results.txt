@@ -1,0 +1,1 @@
+﻿Synthetic result: PASS deterministic 100-step replay. This fixture is not evidence of actual game performance.

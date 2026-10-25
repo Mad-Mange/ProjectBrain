@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ProjectBrain.Api/ProjectBrain.Api.csproj" />
+    <Project Path="src/ProjectBrain.Application/ProjectBrain.Application.csproj" />
+    <Project Path="src/ProjectBrain.Domain/ProjectBrain.Domain.csproj" />
+    <Project Path="src/ProjectBrain.Infrastructure/ProjectBrain.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ProjectBrain.DomainTests/ProjectBrain.DomainTests.csproj" />
+    <Project Path="tests/ProjectBrain.Tests/ProjectBrain.Tests.csproj" />
+  </Folder>
+</Solution>

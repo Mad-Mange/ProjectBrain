@@ -1,0 +1,2 @@
+Read 05\_AGENT\_EXECUTION\_PROMPT.md and the accompanying ProjectBrain v2 specifications. Implement the complete application using the atomic task backlog. Include Docker Compose, incremental scanning, Quick Capture, idea flags, experiment tracking and global MCP integration. Implement actual working code and tests, not just another plan. Record progress and test results in IMPLEMENTATION\_PROGRESS.md.
+

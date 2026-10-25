@@ -1,0 +1,30 @@
+﻿name: validate
+on: [push, pull_request]
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: dotnet restore ProjectBrain.slnx --configfile NuGet.Config
+      - run: dotnet build ProjectBrain.slnx --no-restore
+      - run: dotnet test ProjectBrain.slnx --no-build
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build && npm test
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: npm run e2e
+        working-directory: frontend
+      - run: python tests/schema_test.py
+      - run: docker compose config --quiet
+        env:
+          PROJECTS_ROOT: ./tests/fixtures
+          PROJECTBRAIN_AUTH_TOKEN: ci-only-synthetic-token-not-for-deployment-1234
+

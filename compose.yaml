@@ -1,0 +1,68 @@
+﻿name: projectbrain
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PROJECTBRAIN_API_PORT:-4317}:8080"
+    environment:
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      ASPNETCORE_ENVIRONMENT: Production
+      PROJECTBRAIN_DB: /app/data/projectbrain.db
+      PROJECTBRAIN_SOURCES: /sources/projects
+      PROJECTBRAIN_AUTH_TOKEN: ${PROJECTBRAIN_AUTH_TOKEN:?Set a random 32+ byte secret in .env}
+      PROJECTBRAIN_AGENT_TOKEN: ${PROJECTBRAIN_AGENT_TOKEN:-}
+      PROJECTBRAIN_WEB_ORIGIN: http://127.0.0.1:${PROJECTBRAIN_WEB_PORT:-4318}
+    volumes:
+      - type: bind
+        source: ${PROJECTS_ROOT:?Set PROJECTS_ROOT in .env}
+        target: /sources/projects
+        read_only: true
+        bind:
+          create_host_path: false
+      - projectbrain_data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=64m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 256
+    healthcheck:
+      test: ["CMD", "dotnet", "ProjectBrain.Api.dll", "--healthcheck"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks: [internal]
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PROJECTBRAIN_WEB_PORT:-4318}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/health/live"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    networks: [internal]
+volumes:
+  projectbrain_data:
+networks:
+  internal:
+    driver: bridge
+
+

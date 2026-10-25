@@ -1,0 +1,6 @@
+﻿services:
+  demo:
+    image: synthetic
+    environment:
+      - EXAMPLE_SETTING
+
