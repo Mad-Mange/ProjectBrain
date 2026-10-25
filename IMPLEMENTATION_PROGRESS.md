@@ -181,7 +181,9 @@ Real-library verification is complete: the API lists 25 indexed projects; an FTS
 
 - Prepared an English public README with a complete clone/configure/start flow, distinct human/agent token initialization, a synthetic UI screenshot, MCP setup, validation status, and documented limitations. All 13 local README targets resolve; its PowerShell credential example passed in an isolated ignored directory and did not change the personal `.env`.
 - Expanded Git/Docker exclusions for private environment variants, SQLite files and Python caches. Reviewed the existing history (128 historical file blobs) for local credentials, private keys and accidentally versioned data; no matches were found. The earlier local development history is retained locally; the public `main` snapshot uses the owner's GitHub noreply identity.
-- Publication target: `https://github.com/Mad-Mange/ProjectBrain`. Remote visibility, pushed commit and GitHub Actions results are to be verified after publication.
+- Published public repository: [Mad-Mange/ProjectBrain](https://github.com/Mad-Mange/ProjectBrain), default branch `main`. Initial public commit: `5efcd5903977fa2c162fd0421da2dfc0bd7e6d9f`. GitHub's anonymous API confirms public visibility, all 130 intended files, a noreply commit identity, and no `.env`, local reports or databases in the public tree. The previous development branch remains local.
+- Verified the exact README and both images through unauthenticated public requests and checked the rendered GitHub page in Chromium. Local publication evidence is in ignored `.local/github-publication.json` and `.local/github-readme.png`.
+- [First GitHub Actions run](https://github.com/Mad-Mange/ProjectBrain/actions/runs/40237162079): **PASS** on Ubuntu, including restore/build, all 108 .NET tests, frontend build and 3 React tests, both Playwright journeys, 8 SQLite schema checks, and Compose configuration validation. Full container startup/restart tests remain separately verified by the earlier Docker Desktop smoke run.
 
 ### Previously documented limits
 
